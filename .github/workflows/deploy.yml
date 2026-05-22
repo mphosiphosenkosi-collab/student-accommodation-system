@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ master ]
-  workflow_dispatch:  # Allows manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22'  # Changed from 18 to 22
           
       - name: Install dependencies
         working-directory: ./frontend
