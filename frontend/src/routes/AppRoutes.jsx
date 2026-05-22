@@ -71,7 +71,7 @@ const ProtectedRoute = ({ children, userType }) => {
 /* ========== MAIN APP ROUTES ========== */
 function AppRoutes() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/student-accommodation-system">
       <Routes>
         
         {/* ========== PUBLIC ROUTES ========== */}
