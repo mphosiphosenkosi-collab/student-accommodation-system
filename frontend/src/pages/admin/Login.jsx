@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-function TenantLogin() {
+function AdminLogin() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -12,20 +12,16 @@ function TenantLogin() {
     setError("")
     
     // Simple validation - replace with actual API call
-    if (email && password) {
-      // Store auth token
-      localStorage.setItem("tenantToken", "mock-tenant-token-123")
-      localStorage.setItem("tenantUser", JSON.stringify({
-        name: "Thabo Mbeki",
+    if (email === "admin@example.com" && password === "admin123") {
+      localStorage.setItem("adminToken", "mock-admin-token-123")
+      localStorage.setItem("adminUser", JSON.stringify({
+        name: "Admin User",
         email: email,
-        avatar: "👨‍🎓",
-        role: "Tenant"
+        role: "Administrator"
       }))
-      
-      // Redirect to tenant dashboard
-      navigate("/tenant/dashboard", { replace: true })
+      navigate("/admin/dashboard", { replace: true })
     } else {
-      setError("Please enter email and password")
+      setError("Invalid credentials. Use admin@example.com / admin123")
     }
   }
 
@@ -33,11 +29,11 @@ function TenantLogin() {
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.logo}>
-          <span>🏠</span>
-          <h2>Tenant Portal</h2>
+          
+          <h2>Admin Portal</h2>
         </div>
-        <h1 style={styles.title}>Welcome Back</h1>
-        <p style={styles.subtitle}>Sign in to manage your accommodation</p>
+        <h1 style={styles.title}>Admin Access</h1>
+        <p style={styles.subtitle}>Sign in to manage the platform</p>
         
         {error && <div style={styles.error}>{error}</div>}
         
@@ -64,7 +60,7 @@ function TenantLogin() {
         </form>
         
         <div style={styles.footer}>
-          <p>Demo credentials: any email/password</p>
+          <p>Demo: admin@example.com / admin123</p>
           <a href="/" style={styles.homeLink}>← Back to Home</a>
         </div>
       </div>
@@ -75,7 +71,7 @@ function TenantLogin() {
 const styles = {
   container: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #065A63 0%, #0B6B73 100%)",
+    background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -96,7 +92,8 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "10px"
+    gap: "10px",
+    color: "#fff"
   },
   title: {
     color: "#fff",
@@ -130,10 +127,7 @@ const styles = {
     background: "rgba(255,255,255,0.1)",
     color: "#fff",
     fontSize: "1rem",
-    outline: "none",
-    '::placeholder': {
-      color: "rgba(255,255,255,0.5)"
-    }
+    outline: "none"
   },
   button: {
     padding: "12px",
@@ -160,4 +154,4 @@ const styles = {
   }
 }
 
-export default TenantLogin
+export default AdminLogin
