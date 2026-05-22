@@ -2,48 +2,44 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - master  # Triggers when you push to master branch
+    branches: [ master ]
+  workflow_dispatch:  # Allows manual trigger
+
+permissions:
+  contents: write
+  pages: write
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest  # Uses Ubuntu (free) in the cloud
+  build-and-deploy:
+    runs-on: ubuntu-latest
     
     steps:
-      # Step 1: Checkout your code
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
-      
-      # Step 2: Setup Node.js
+        
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # You can use 18, 20, or 22
+          node-version: '18'
           
-      # Step 3: Install dependencies
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
-      
-      # Step 4: Build the React app
-      - name: Build the app
-        run: |
-          cd frontend
-          npm run build
-          
-      # Step 5: Create .nojekyll file
+        working-directory: ./frontend
+        run: npm ci
+        
+      - name: Build
+        working-directory: ./frontend
+        run: npm run build
+        
       - name: Create .nojekyll
         run: touch frontend/dist/.nojekyll
-      
-      # Step 6: Deploy to gh-pages branch
-      - name: Deploy to GitHub Pages
+        
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/dist
           publish_branch: gh-pages
-          force_orphan: true  # Creates a clean branch each time
+          force_orphan: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy: ${{ github.event.head_commit.message }}'
