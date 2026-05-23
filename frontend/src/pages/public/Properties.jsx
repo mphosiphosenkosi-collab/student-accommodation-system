@@ -1,74 +1,84 @@
+import { useNavigate } from "react-router-dom"
+
 function Properties() {
+  const navigate = useNavigate()
 
   const properties = [
-
     {
       id: 1,
       name: "Mbombela Heights Residence",
       location: "Mbombela • Near Riverside Mall",
-      description:
-        "Modern student accommodation designed for comfort, convenience and secure living in the heart of Mbombela.",
+      description: "Modern student accommodation designed for comfort, convenience and secure living in the heart of Mbombela.",
       status: "NSFAS Friendly",
-      rooms: "12 Rooms Available"
+      rooms: "12 Rooms Available",
+      image: "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      price: "R2,500 - R3,500"
     },
-
     {
       id: 2,
       name: "Lowveld Student Living",
       location: "West Acres • Nelspruit",
-      description:
-        "A calm and professionally managed student environment close to major transport routes and study facilities.",
+      description: "A calm and professionally managed student environment close to major transport routes and study facilities.",
       status: "Limited Space",
-      rooms: "5 Rooms Remaining"
+      rooms: "5 Rooms Remaining",
+      image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      price: "R2,800 - R3,800"
     },
-
     {
       id: 3,
       name: "Urban Nest Mbombela",
       location: "Mbombela Central",
-      description:
-        "Clean, modern and student-focused residences tailored for both private and NSFAS-funded students.",
+      description: "Clean, modern and student-focused residences tailored for both private and NSFAS-funded students.",
       status: "Now Accepting Applications",
-      rooms: "Rooms Available"
+      rooms: "Rooms Available",
+      image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      price: "R2,300 - R3,200"
+    },
+    {
+      id: 4,
+      name: "Riverside Student Village",
+      location: "Riverside • Mbombela",
+      description: "Premium student village with resort-style amenities and stunning Crocodile River views.",
+      status: "Limited Availability",
+      rooms: "8 Rooms Available",
+      image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      price: "R3,000 - R4,500"
+    },
+    {
+      id: 5,
+      name: "Sunrise Student Suites",
+      location: "Sonheuwel • Mbombela",
+      description: "Cozy, secure suites designed for academic excellence and comfortable living near major institutions.",
+      status: "NSFAS Friendly",
+      rooms: "15 Rooms Available",
+      image: "https://images.unsplash.com/photo-1560185009-5f9e67e2b6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      price: "R2,400 - R3,300"
     }
-
   ]
 
   return (
-
     <div style={styles.page}>
 
       {/* HERO SECTION */}
-
       <section style={styles.hero}>
-
         <div style={styles.heroOverlay}></div>
-
         <div style={styles.heroContent}>
-
           <span style={styles.heroTag}>
             STUDENT ACCOMMODATION • MBOMBELA
           </span>
-
           <h1 style={styles.heroTitle}>
             Discover Modern Student Living In Nelspruit
           </h1>
-
           <p style={styles.heroSubtitle}>
             Explore professionally managed student accommodation
             designed around comfort, accessibility and modern living.
           </p>
-
         </div>
-
       </section>
 
       {/* PROPERTY SHOWCASE */}
-
       <section style={styles.section}>
-
         {properties.map((property, index) => (
-
           <div
             key={property.id}
             style={{
@@ -76,84 +86,62 @@ function Properties() {
               flexDirection: index % 2 === 0 ? "row" : "row-reverse"
             }}
           >
-
             {/* IMAGE SIDE */}
-
             <div style={styles.imageContainer}>
-
-              <div style={styles.imagePlaceholder}>
-
-                <div style={styles.imageGlow}></div>
-
-                <span style={styles.placeholderText}>
-                  Residence Preview
-                </span>
-
-              </div>
-
+              <img 
+                src={property.image} 
+                alt={property.name}
+                style={styles.propertyImage}
+              />
+              <div style={styles.priceTag}>{property.price}</div>
             </div>
 
             {/* CONTENT SIDE */}
-
             <div style={styles.content}>
-
               <span style={styles.statusBadge}>
                 {property.status}
               </span>
-
               <h2 style={styles.propertyTitle}>
                 {property.name}
               </h2>
-
               <p style={styles.location}>
-                {property.location}
+                 {property.location}
               </p>
-
               <p style={styles.description}>
                 {property.description}
               </p>
-
               <div style={styles.roomsBox}>
-                {property.rooms}
+                 {property.rooms}
               </div>
-
               <div style={styles.buttonGroup}>
-
-                <button style={styles.primaryButton}>
-                  View Residence
+                <button 
+                  style={styles.primaryButton}
+                  onClick={() => navigate(`/property/${property.id}`)}
+                >
+                  View Details
                 </button>
-
-                <button style={styles.secondaryButton}>
+                <button 
+                  style={styles.secondaryButton}
+                  onClick={() => navigate("/apply")}
+                >
                   Apply Now
                 </button>
-
               </div>
-
             </div>
-
           </div>
-
         ))}
-
       </section>
-
     </div>
-
   )
 }
 
 const styles = {
-
-  /* PAGE */
-
   page: {
     background: "#065A63",
     minHeight: "100vh",
     color: "white",
     overflow: "hidden"
   },
-
-  /* HERO */
 
   hero: {
     position: "relative",
@@ -165,13 +153,7 @@ const styles = {
   heroOverlay: {
     position: "absolute",
     inset: 0,
-    background: `
-      radial-gradient(
-        circle at top,
-        rgba(75,199,176,0.22),
-        transparent 65%
-      )
-    `
+    background: "radial-gradient(circle at top, rgba(75,199,176,0.22), transparent 65%)"
   },
 
   heroContent: {
@@ -204,8 +186,6 @@ const styles = {
     margin: "0 auto"
   },
 
-  /* SECTION */
-
   section: {
     maxWidth: "1400px",
     margin: "0 auto",
@@ -220,51 +200,32 @@ const styles = {
     flexWrap: "wrap"
   },
 
-  /* IMAGE SIDE */
-
   imageContainer: {
     flex: 1,
     minWidth: "340px",
     position: "relative"
   },
 
-  imagePlaceholder: {
+  propertyImage: {
     width: "100%",
     height: "560px",
+    objectFit: "cover",
     borderRadius: "38px",
-    background: `
-      linear-gradient(
-        135deg,
-        #0F7C82,
-        #2FA7A0
-      )
-    `,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    overflow: "hidden",
-    border: "1px solid rgba(255,255,255,0.08)"
+    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+    border: "1px solid rgba(255,255,255,0.1)"
   },
 
-  imageGlow: {
+  priceTag: {
     position: "absolute",
-    width: "320px",
-    height: "320px",
-    background: "rgba(255,255,255,0.08)",
-    borderRadius: "50%",
-    filter: "blur(80px)"
+    bottom: "20px",
+    right: "20px",
+    background: "#4BC7B0",
+    color: "#08363C",
+    padding: "8px 16px",
+    borderRadius: "12px",
+    fontWeight: "bold",
+    fontSize: "1rem"
   },
-
-  placeholderText: {
-    position: "relative",
-    zIndex: 2,
-    color: "rgba(255,255,255,0.8)",
-    fontSize: "1.1rem",
-    letterSpacing: "2px"
-  },
-
-  /* CONTENT */
 
   content: {
     flex: 1,
@@ -315,8 +276,6 @@ const styles = {
     backdropFilter: "blur(10px)"
   },
 
-  /* BUTTONS */
-
   buttonGroup: {
     display: "flex",
     gap: "16px",
@@ -331,7 +290,8 @@ const styles = {
     borderRadius: "18px",
     fontWeight: "700",
     fontSize: "1rem",
-    cursor: "pointer"
+    cursor: "pointer",
+    transition: "transform 0.2s"
   },
 
   secondaryButton: {
@@ -343,9 +303,9 @@ const styles = {
     fontWeight: "700",
     fontSize: "1rem",
     cursor: "pointer",
-    backdropFilter: "blur(10px)"
+    backdropFilter: "blur(10px)",
+    transition: "transform 0.2s"
   }
-
 }
 
 export default Properties

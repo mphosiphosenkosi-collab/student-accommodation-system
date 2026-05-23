@@ -7,6 +7,7 @@ import { useState, useEffect } from "react"
 import Home from "../pages/public/Home"
 import Properties from "../pages/public/Properties"
 import Apply from "../pages/public/Apply"
+import PropertyDetails from "../pages/public/PropertyDetails"  // ADD THIS LINE
 
 /* LAYOUTS */
 import PublicLayout from "../layouts/PublicLayout"
@@ -79,6 +80,7 @@ function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />  {/* ADD THIS LINE */}
         </Route>
 
         {/* ========== TENANT ROUTES ========== */}
